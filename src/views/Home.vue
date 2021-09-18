@@ -1,18 +1,33 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <AppHeader @open-contact="toggleContactMenu(true)"/>
+    <MainBody/>
+    <AppFooter/>
+    <ContactModal v-show="isContactModalShow" :isShow="isContactModalShow" @close="toggleContactMenu(false)"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import AppHeader from "@/components/AppHeader";
+import MainBody from "@/components/MainBody";
+import AppFooter from "@/components/AppFooter";
+import ContactModal from "@/components/ContactModal";
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    AppHeader,
+    MainBody,
+    AppFooter,
+    ContactModal
+  },
+  data: () => ({
+    isContactModalShow: false
+  }),
+  methods: {
+    toggleContactMenu(status) {
+      this.isContactModalShow = status
+    }
   }
 }
 </script>
