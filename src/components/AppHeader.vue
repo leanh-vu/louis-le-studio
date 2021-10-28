@@ -1,69 +1,53 @@
 <template>
   <div>
-    <v-app-bar
-        color="black"
-        absolute
-        dark
-    >
+    <v-app-bar app hide-on-scroll>
       <div class="side-bar-button">
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       </div>
 
       <div class="top-bar-container d-flex align-center justify-space-between">
         <div class="d-flex align-center">
-          <div><h1>LOUIS LE STUDIO</h1></div>
-          <div class="button-header desktop-show">
-            <a href="#service" class="underline--none"><div class="button-text">Dịch vụ</div></a>
+          <div class="brand-logo" @click="go('Home')"><h3>LOUIS LE STUDIO</h3></div>
+          <div class="app-bar-button-container desktop-show">
+            <div class="d-flex align-center justify-center">
+              <div class="button-header mobile-hide">
+                <div class="button-text" @click="go('CategoryListing')">Tủ đồ</div>
+              </div>
+              <div class="button-header mobile-hide">
+                <div class="button-text" @click="toggleHistory(true)">Lịch sử đơn hàng</div>
+              </div>
+              <div class="button-header mobile-hide">
+                <div class="button-text" @click="toggleHistory(true)">Tìm Louis Le Studio</div>
+              </div>
+            </div>
           </div>
-          <div class="button-header desktop-show">
-            <div class="button-text" @click="openContact">Liên hệ</div>
-          </div>
-        </div>
-        <div class="desktop-show">
-          <v-col
-              cols="12"
-              class="py-2 lang-button-container"
-          >
-
-            <v-btn-toggle v-model="lang">
-              <v-btn v-for="language in langList" :key="language.id">
-                <img :src="require(`../assets/${language.img}`)" alt="">
-              </v-btn>
-            </v-btn-toggle>
-          </v-col>
         </div>
       </div>
 
+      <v-spacer></v-spacer>
+      <SearchBox/>
+      <v-badge
+          class=""
+          :content="1"
+          :value="shopList.length"
+          color="#1776d1"
+          overlap
+      >
+        <v-icon @click="togglePayment(true)" size="30" color="black">local_mall</v-icon>
+      </v-badge>
 
     </v-app-bar>
-
-    <v-navigation-drawer
-        v-model="drawer"
-        absolute
-        temporary
-    >
-      <v-list
-          nav
-          dense
-      >
+    <v-navigation-drawer v-model="drawer" app>
+      <v-list nav dense>
         <v-list-item-group
             v-model="group"
             active-class="deep-purple--text text--accent-4"
         >
           <v-list-item>
-            <v-list-item-title>Foo</v-list-item-title>
+            <v-list-item-title @click="go('CategoryListing')">Tủ đồ</v-list-item-title>
           </v-list-item>
-
           <v-list-item>
-            <v-list-item-title>Bar</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Fizz</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Buzz</v-list-item-title>
+            <v-list-item-title @click="toggleHistory(true)">Lịch sử đơn hàng</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -72,8 +56,14 @@
 </template>
 
 <script>
+import SearchBox from "@/components/SearchBox";
+import {mapState} from "vuex";
+
 export default {
   name: "AppHeader",
+  components: {
+    SearchBox
+  },
   data() {
     return {
       lang: 2,
@@ -93,16 +83,30 @@ export default {
       group: null,
     }
   },
-  methods: {
-    openContact() {
-      this.$emit('open-contact')
-    }
+
+  computed: {
+    ...mapState({
+      shopList: state => state.cart.shopList
+    })
   },
   watch: {
-    group () {
+    group() {
       this.drawer = false
     },
   },
+  methods: {
+    togglePayment(status) {
+      this.$emit('open-payment', status)
+    },
+    toggleHistory(status) {
+      this.$emit('open-history', status)
+    },
+    go(name) {
+      this.$router.push({
+        name
+      })
+    }
+  }
 }
 </script>
 
@@ -110,28 +114,37 @@ export default {
 .top-bar-container {
   width: 100%;
   padding: 0 10px;
-  .lang-button-container {
-    padding: 0;
+
+  .brand-logo {
+    cursor: pointer;
   }
+}
+
+.app-bar-button-container {
+  display: none;
 }
 
 .button-header {
   text-transform: uppercase;
   margin-left: 20px;
+  color: black;
 
   .button-text {
     text-decoration: none;
-    color: white;
+    color: black;
     display: block;
     position: relative;
-    opacity: 0.7;
+    opacity: 0.8;
     padding: 0.2em 0;
     cursor: pointer;
     border: none;
     outline: none;
+    text-transform: none !important;
+
     &:hover {
       opacity: 1;
     }
+
     &::after {
       content: '';
       position: absolute;
@@ -139,7 +152,7 @@ export default {
       left: 0;
       width: 100%;
       height: 0.1em;
-      background-color: white;
+      background-color: black;
       opacity: 0;
       transition: opacity 300ms, transform 300ms;
     }
@@ -151,17 +164,16 @@ export default {
     }
   }
 }
+
 .underline--none {
   text-decoration: none;
 }
+
 @media only screen and (min-width: 768px) {
   .side-bar-button {
     display: none;
   }
-  .des--show {
-    display: block;
-  }
-  .mobile-hide {
+  .desktop-show {
     display: block;
   }
 }

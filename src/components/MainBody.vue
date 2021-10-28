@@ -1,43 +1,69 @@
 <template>
-  <div class="main-container">
-    <img src="../assets/header-background.jpeg" class="main-banner">
+  <div class="home-main-container">
+    <v-carousel
+        cycle
+        height="400"
+        hide-delimiter-background
+        show-arrows-on-hover
+        hide-delimiters
+        interval="4000"
+    >
+      <v-carousel-item
+          v-for="(slide, i) in slides"
+          :key="i"
+      >
+        <v-sheet
+            height="100%"
+        >
+          <v-row
+              class="fill-height"
+              align="center"
+              justify="center"
+          >
+            <img src="../assets/header-background.jpeg" class="main-banner">
+          </v-row>
+        </v-sheet>
+      </v-carousel-item>
+    </v-carousel>
     <div class="main-content">
-      <div id="service">
-        <Service />
-      </div>
-      <div>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur fugit officia quae quo soluta. Animi dolor, dolore eius excepturi fugiat hic impedit ipsa itaque laboriosam minus modi neque perspiciatis sint.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur fugit officia quae quo soluta. Animi dolor, dolore eius excepturi fugiat hic impedit ipsa itaque laboriosam minus modi neque perspiciatis sint.
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur fugit officia quae quo soluta. Animi dolor, dolore eius excepturi fugiat hic impedit ipsa itaque laboriosam minus modi neque perspiciatis sint.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur fugit officia quae quo soluta. Animi dolor, dolore eius excepturi fugiat hic impedit ipsa itaque laboriosam minus modi neque perspiciatis sint.
-      </div>
+
     </div>
   </div>
 </template>
 
 <script>
-import Service from "@/components/Service";
 
 export default {
   name: "MainBody",
-  components: {
-    Service
-  }
+  data: () => ({
+    slides: [
+      'First',
+      'Second',
+      'Third',
+      'Fourth',
+      'Fifth',
+    ],
+  })
 }
 </script>
 
 <style lang="scss" scoped>
-.main-container {
+.home-main-container {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+
   .main-banner {
     width: 100%;
     height: auto;
+    min-height: 100%;
   }
+
   .main-content {
-    width: 80%;
+    width: 95%;
   }
+
 }
 </style>

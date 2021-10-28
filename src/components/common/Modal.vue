@@ -1,18 +1,12 @@
 <template>
   <transition name="modal">
     <div class="modal-mask">
-      <div class="modal-wrapper" @click.self="close">
+      <div class="modal-wrapper" @click.self="closeOnClickOutside">
         <div class="modal-container">
-          <div class="modal-content">
-            <div class="email-container">
-              <v-icon
-                  large
-                  color="#ea4435"
-              >
-                mdi-email
-              </v-icon> <strong>le.louis.studio@gmail.com</strong>
-            </div>
+          <div v-if="closeButton" class="button-close-container">
+            <v-icon @click="close"> close</v-icon>
           </div>
+          <slot/>
         </div>
       </div>
     </div>
@@ -22,9 +16,40 @@
 
 <script>
 export default {
+  props: {
+    isShow: {
+      type: Boolean,
+      default: false
+    },
+    isCloseOnClickOutside: {
+      type: Boolean,
+      default: false
+    },
+    closeButton: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data: () => ({
+    preventCloseClassName: 'prevent-scroll'
+  }),
+  watch: {
+    isShow: function (isShow) {
+      if (isShow) {
+        document.body.classList.add(this.preventCloseClassName);
+      } else {
+        document.body.classList.remove(this.preventCloseClassName);
+      }
+    }
+  },
   methods: {
     close() {
       this.$emit('close')
+    },
+    closeOnClickOutside() {
+      if (this.isCloseOnClickOutside) {
+        this.$emit('close')
+      }
     }
   }
 }
@@ -50,7 +75,8 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  height: 100%;
+  width: 100%;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
@@ -58,6 +84,7 @@ export default {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
+  overflow: scroll;
 }
 
 .modal-header h3 {
@@ -86,10 +113,30 @@ export default {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+
 .modal-content {
   .email-container {
     display: flex;
   }
 }
+.button-close-container {
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+}
+@media only screen and (min-width: 768px) {
+  .modal-container {
+    max-width: 90%;
+    max-height: 80vh;
+    height: auto;
+  }
+}
 
+</style>
+
+<style lang="scss">
+.prevent-scroll {
+  overflow: hidden;
+  position: fixed;
+}
 </style>
