@@ -1,0 +1,28 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.fade-enter-active {
+    transition: opacity .1s;
+}
+
+.fade-leave-active {
+    transition: opacity .3s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+{
+    opacity: 0.1;
+}
+@font-face {
+    font-family: studioFont;
+    /*src: url(../src/assets/font/OTF/SVN-Poppins-Regular.otf);*/
+    src: url(./font/OTF/SVN-Poppins-Regular.otf);
+}
+body {
+    margin: 0;
+    font-family: studioFont, Roboto, 'Helvetica Neue', sans-serif;
+}
+* {
+    font-family: studioFont, Roboto, 'Helvetica Neue', sans-serif;
+}
