@@ -4,12 +4,7 @@
     "name": "Về làng trousers",
     "colorList": [
       "#00A892",
-<<<<<<< HEAD
       "#FF621F"
-=======
-      "#FF621F",
-      "#119AF5"
->>>>>>> 48176cb08d330480393a1619ad555f4064140f06
     ],
     "price": 500000,
     "itemId": "1"
@@ -20,12 +15,8 @@
     "colorList": [
       "#00A892",
       "#FF621F",
-<<<<<<< HEAD
       "#119AF5",
       "#F5F5C3"
-=======
-      "#119AF5"
->>>>>>> 48176cb08d330480393a1619ad555f4064140f06
     ],
     "price": 500000,
     "itemId": "12"
@@ -35,10 +26,6 @@
     "name": "Về làng trousers",
     "colorList": [
       "#00A892",
-<<<<<<< HEAD
-=======
-      "#FF621F",
->>>>>>> 48176cb08d330480393a1619ad555f4064140f06
       "#119AF5"
     ],
     "price": 500000,
@@ -48,13 +35,8 @@
     "img": "https://api.leanservices.work/product/static/system/102021/1634091010272.jpeg",
     "name": "Về làng trousers",
     "colorList": [
-<<<<<<< HEAD
       "#FF621F",
       "#F5F5C3",
-=======
-      "#00A892",
-      "#FF621F",
->>>>>>> 48176cb08d330480393a1619ad555f4064140f06
       "#119AF5"
     ],
     "price": 500000,
@@ -75,11 +57,6 @@
     "img": "https://api.leanservices.work/product/static/system/102021/1634091010272.jpeg",
     "name": "Về làng trousers",
     "colorList": [
-<<<<<<< HEAD
-=======
-      "#00A892",
-      "#FF621F",
->>>>>>> 48176cb08d330480393a1619ad555f4064140f06
       "#119AF5"
     ],
     "price": 500000,
